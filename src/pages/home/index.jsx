@@ -1,4 +1,3 @@
-import PackTabBar from '@/component/tabbar'
 import PropTypes from 'prop-types'
 import React, { memo, Suspense, useEffect } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
@@ -6,13 +5,14 @@ import { Outlet } from 'react-router-dom'
 import { HomeWrapper } from './style'
 import { fetchHomeDataAction } from '@/store/modules/home'
 
+import PackTabBar from '@/component/tabbar'
+// >>>>>>> homepage
 const Home = memo((props) => {
   const { homeSwiper } = useSelector((state) => {
     return {
       homeSwiper: state.home.homeSwiper
     }
   }, shallowEqual)
-  console.log(homeSwiper)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchHomeDataAction())
@@ -20,13 +20,11 @@ const Home = memo((props) => {
 
   return (
     <HomeWrapper>
-      <Suspense fallback="">
+      <Suspense fallback={<h5>loading....</h5>}>
         {/* 子路由占位符 */}
         <Outlet />
       </Suspense>
-      <div className="home">
-        <PackTabBar />
-      </div>
+      <PackTabBar />
     </HomeWrapper>
   )
 })

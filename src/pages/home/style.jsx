@@ -1,19 +1,17 @@
 import styled from 'styled-components'
 export const HomeWrapper = styled.div`
-  width: 100%;
+  width: 100vw;
   height: 100vh;
-  /* background-color: pink; */
-  /* .home {
-    position: fixed;
-    width: 100%;
-    left: 0;
-    bottom: 0;
-  } */
+  overflow-x: hidden;
   .adm-tab-bar {
-    /* display: flex; */
     position: fixed;
     left: 0;
-    bottom: 0;
-    width: 100%;
+    bottom: -2px;
+    width: 100vw;
+    z-index: 9999;
+  }
+  body {
+    margin: 0;
+    padding: 0;
   }
 `

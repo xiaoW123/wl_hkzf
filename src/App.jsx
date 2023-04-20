@@ -1,8 +1,16 @@
-import React, { memo, Suspense } from 'react'
 import { useRoutes } from 'react-router-dom'
 import routes from './router'
+import React, { memo, Suspense, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { fetchHomeDataAction } from '@/store/modules/home'
 
-const App = memo((props) => {
+function App() {
+  const dispatch = useDispatch()
+  // 请求home主页需要的数据
+  useEffect(() => {
+    dispatch(fetchHomeDataAction())
+  })
+
   return (
     <div className="App">
       <Suspense fallback="">
@@ -10,21 +18,5 @@ const App = memo((props) => {
       </Suspense>
     </div>
   )
-})
-
+}
 export default App
-// import React, { Suspense } from 'react'
-// import { useRoutes } from 'react-router-dom'
-// import routes from './router'
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <Suspense fallback="">
-//         <div>{useRoutes(routes)}</div>
-//       </Suspense>
-//     </div>
-//   )
-// }
-
-// export default App
