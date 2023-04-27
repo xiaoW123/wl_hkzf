@@ -1,18 +1,16 @@
 import React, { memo } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { TabBar } from 'antd-mobile'
-import { TabBarWrapper } from './style'
-
 import {
   AppOutline,
-  MessageOutline,
   MessageFill,
   UnorderedListOutline,
   UserOutline
 } from 'antd-mobile-icons'
-
+import { TabBarWrapper } from './style'
 const PackTabBar = memo((props) => {
   const navigate = useNavigate()
+  const { pathname } = useLocation()
   const tabs = [
     {
       key: '/home/homepage',
@@ -41,7 +39,11 @@ const PackTabBar = memo((props) => {
   }
   return (
     <TabBarWrapper>
-      <TabBar onChange={(value) => setRouteActive(value)}>
+      <TabBar
+        activeKey={pathname}
+        safeArea={true}
+        onChange={(value) => setRouteActive(value)}
+      >
         {tabs.map((item, index) => {
           return (
             <TabBar.Item

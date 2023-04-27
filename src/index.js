@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import 'normalize.css'
 import './assets/css/index.less'
 import store from '@/store'
-
+import 'react-virtualized/styles.css';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

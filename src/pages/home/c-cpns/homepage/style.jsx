@@ -6,66 +6,6 @@ export const HomePageWrapper = styled.div`
   overflow-x: auto;
   background-color: #f6f5f6;
 
-  /* 头部搜索 */
-  .header_search {
-    position: absolute;
-    top: 20px;
-    left: 45%;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    width: 298px;
-    height: 35px;
-    background-color: #fff;
-    padding: 5px 5px 5px 8px;
-    border-radius: 5px;
-    z-index: 999;
-    .dd_list {
-      box-sizing: border-box;
-      display: flex;
-      align-items: center;
-      width: 45px;
-      height: 16px;
-      overflow: hidden;
-      > p {
-        width: 35px;
-        height: 16px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        font-size: 14px;
-      }
-    }
-    .search {
-      flex: 1;
-      margin-left: 10px;
-      display: flex;
-      align-items: center;
-      padding-left: 10px;
-      border-left: 1px solid #e5e5e5;
-      height: 16px;
-      /* background-color: black; */
-      > p {
-        font-size: 13px;
-        color: #9c9fa1;
-      }
-    }
-  }
-  /* 头部地图 */
-  .header_dt {
-    position: absolute;
-    width: 25px;
-    height: 25px;
-    right: 15px;
-    top: 25px;
-    line-height: 20px;
-    text-align: center;
-    color: #fff;
-    border-radius: 50%;
-    border: 2px solid #fff;
-    z-index: 999;
-    /* font-size: 20px; */
-  }
   /* 头部轮播 */
   .header_swiper {
     top: 0;
@@ -86,7 +26,7 @@ export const HomePageWrapper = styled.div`
     align-items: center;
     width: 100vw;
     height: 93px;
-    padding-top: 20px;
+    padding-top: 30px;
     padding-bottom: 20px;
     background-color: #fff;
     z-index: 9999;
@@ -94,7 +34,6 @@ export const HomePageWrapper = styled.div`
       flex: 1;
       display: flex;
       flex-direction: column;
-      /* justify-content: center; */
       align-items: center;
       > img {
         width: 48px;
@@ -188,6 +127,9 @@ export const HomePageWrapper = styled.div`
       margin: 10px 0 5px 10px;
       padding: 10px 0;
     }
+    .new_item:last-child {
+      border: none;
+    }
     .new_item {
       display: flex;
       width: 94%;
@@ -202,6 +144,7 @@ export const HomePageWrapper = styled.div`
           width: 100%;
         }
       }
+
       .item_text {
         display: flex;
         flex-direction: column;
@@ -224,5 +167,9 @@ export const HomePageWrapper = styled.div`
       }
     }
   }
->>>>>>> homepage
+  .adm-page-indicator-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 8px;
+  }
 `

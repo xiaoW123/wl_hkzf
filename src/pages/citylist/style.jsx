@@ -1,5 +1,8 @@
 import styled from 'styled-components'
 export const CityListWrapper = styled.div`
+  .adm-index-bar {
+    margin-top: 40px;
+  }
   .adm-index-bar-sidebar {
     position: fixed;
     .adm-index-bar-sidebar-row {

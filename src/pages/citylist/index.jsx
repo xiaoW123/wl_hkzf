@@ -1,11 +1,11 @@
-import PropTypes from 'prop-types'
-import React, { memo, useEffect, useRef, useState } from 'react'
+import React, { memo, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { CityListWrapper } from './style'
-import { fetchAreaDataAction } from '@/store/modules/area'
-import { IndexBar, List } from 'antd-mobile'
+import { IndexBar, List, Modal } from 'antd-mobile'
 import { changeCurrentPositioningAction } from '@/store/modules/area'
 import { useNavigate } from 'react-router-dom'
+import HeadBar from '@/component/head-bar'
+// import creatHistory from 'history/createHashHistory'
 
 const ClityList = memo((props) => {
   // 1.数据与状态
@@ -20,8 +20,8 @@ const ClityList = memo((props) => {
     }
   })
 
-  // 2.事件处理
-  // 2.1.处理城市list数据
+  // // 2.事件处理
+  // // 2.1.处理城市list数据
   const ctiyList = []
   ctiyList.push(
     { title: '当前定位', items: currentPositioning },
@@ -40,29 +40,33 @@ const ClityList = memo((props) => {
     if (styleArr.length == 0) continue
     ctiyList.push({ title: fromCharCodeA, items: styleArr })
   }
+  if (ctiyList.length === 21) {
+    Modal.clear()
+  }
+
   // 2.2.useEffect
   const indexBarRef = useRef(null)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  useEffect(() => {
-    dispatch(fetchAreaDataAction())
-  }, [])
+  useEffect(() => {}, [])
 
   // 点击切换当前定位
   function changeCurrentPositioning(value) {
     const newCurrentPositon = []
     newCurrentPositon[0] = value
     dispatch(changeCurrentPositioningAction(newCurrentPositon))
-    navigate('/home')
+    window.history.back()
   }
+
   return (
     <CityListWrapper>
+      <HeadBar title="城市选择" bgc="#fff"></HeadBar>
       <div style={{ height: window.innerHeight }}>
         <IndexBar ref={indexBarRef}>
           {ctiyList?.map((item, index) => {
             return (
               <IndexBar.Panel
-                index={item.title}
+                index={item.title === '当前定位' ? '#' : item.title}
                 title={item.title}
                 key={item.title}
               >

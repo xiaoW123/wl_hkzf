@@ -1,7 +1,5 @@
-import React, { memo, useEffect } from 'react'
-import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import { fetchHomeDataAction } from '@/store/modules/home'
-
+import React, { memo } from 'react'
+import { shallowEqual, useSelector } from 'react-redux'
 import { Swiper } from 'antd-mobile'
 import { DownFill, SearchOutline } from 'antd-mobile-icons'
 
@@ -11,47 +9,52 @@ import { imgUrlpj } from '@/utils'
 import '@/assets/font/iconfont.css'
 import { imgNavUrl } from '@/assets/data/index'
 import { useNavigate } from 'react-router-dom'
+import { Modal, DotLoading } from 'antd-mobile'
+import Search from '@/component/search'
 
 const HomePage = memo((props) => {
   // 数据和状态
-  const { homeSwiper, homeGroups, homeNews, currentPositioning } = useSelector(
-    (state) => {
-      return {
-        homeSwiper: state.home.homeSwiper,
-        homeGroups: state.home.homeGroups,
-        homeNews: state.home.homeNews,
-        currentPositioning: state.area.currentPositioning
-      }
-    },
-    shallowEqual
-  )
+  const { homeSwiper, homeGroups, homeNews } = useSelector((state) => {
+    return {
+      homeSwiper: state.home.homeSwiper,
+      homeGroups: state.home.homeGroups,
+      homeNews: state.home.homeNews
+    }
+  }, shallowEqual)
 
   // 事件处理
   const navigate = useNavigate()
-  function changeCityList() {
-    navigate('/citylist')
+  function naviToFindPage(index) {
+    switch (index) {
+      case 0:
+        return navigate('/home/findpage')
+      case 1:
+        return navigate('/home/findpage')
+      case 2:
+        return navigate('/map')
+      case 3:
+        return navigate('/login')
+    }
+    console.log(index)
   }
   return (
     <HomePageWrapper>
       {/* 头部搜索 */}
-      <div className="header_search">
-        <div className="dd_list" onClick={changeCityList}>
-          <p>{currentPositioning?.[0]?.label}&nbsp;</p>
-          <DownFill color="#7f7f80" fontSize={10} />
-        </div>
-        <div className="search">
-          <SearchOutline fontSize={14} color="#9c9fa1" />
-          &nbsp;
-          <p>请输入小区或地址</p>
-        </div>
-      </div>
-      {/* 头部体地图 */}
-      <div className="header_dt">
-        <span className="iconfont icon-weizhi"></span>
-      </div>
+      <Search
+        searchTop="20px"
+        dtTop="25px"
+        searchLeft="45%"
+        searchWidth="300px"
+        dtColor="#fff"
+      />
       {/* 头部轮播 */}
       <div className="header_swiper">
-        <Swiper>
+        <Swiper
+          autoplay
+          indicatorProps={{
+            color: 'white'
+          }}
+        >
           {homeSwiper &&
             homeSwiper?.map((item, index) => {
               return (
@@ -67,7 +70,11 @@ const HomePage = memo((props) => {
         {imgNavUrl &&
           imgNavUrl.map((item, index) => {
             return (
-              <div key={index} className="zhdq_item">
+              <div
+                onClick={() => naviToFindPage(index)}
+                key={index}
+                className="zhdq_item"
+              >
                 <img src={item.url} />
                 <p>{item.title}</p>
               </div>
@@ -117,16 +124,6 @@ const HomePage = memo((props) => {
               </div>
             )
           })}
-        {/* <div className="new_item">
-          <div className="item_img"></div>
-          <div className="item_text">
-            <h5>阿三大苏打实打实啊实打实的</h5>
-            <p>
-              <div>阿松大</div>
-              <div>阿松大</div>
-            </p>
-          </div>
-        </div> */}
       </div>
     </HomePageWrapper>
   )

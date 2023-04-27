@@ -8,7 +8,13 @@ const FindPage = React.lazy(() => import('@/pages/home/c-cpns/findpage'))
 const InformationPage = React.lazy(() =>
   import('@/pages/home/c-cpns/informationpage')
 )
+const Maps = React.lazy(() => import('@/pages/maps'))
 const MinePage = React.lazy(() => import('@/pages/home/c-cpns/minepage'))
+const Login = React.lazy(() => import('@/pages/login'))
+const Detail = React.lazy(() =>
+  import('@/pages/home/c-cpns/findpage/c-cpns/detail')
+)
+const Registe = React.lazy(() => import('@/pages/registe'))
 
 const routes = [
   {
@@ -29,6 +35,22 @@ const routes = [
   {
     path: '/citylist',
     element: <CityList />
+  },
+  {
+    path: '/map',
+    element: <Maps />
+  },
+  {
+    path: '/login',
+    element: <Login />
+  },
+  {
+    path: `/detail/:id`,
+    element: <Detail />
+  },
+  {
+    path: '/registe',
+    element: <Registe />
   }
 ]
 

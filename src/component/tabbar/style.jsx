@@ -4,6 +4,7 @@ export const TabBarWrapper = styled.div`
   color: #333;
   .adm-tab-bar {
     background-color: #fff;
+    border-top: 1px solid #e5e5e5;
   }
 
   .adm-tab-bar-item-active {

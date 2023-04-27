@@ -5,6 +5,8 @@ body {
   font-family: 'Microsoft YaHei';
   color: #333;
   background-color: #fff;
+  margin: 0;
+  padding: 0;
 }
 
 * {
@@ -13,6 +15,21 @@ body {
   padding: 0;
 }
 
+html,
+body,
+#root,
+.App {
+  height: 100%;
+}
+
 body {
   overflow-x: hidden;
 }
+
+.adm-popup {
+  --z-index: var(--adm-popup-z-index, 9999);
+  position: fixed;
+  z-index: var(--z-index);
+}
+
+
