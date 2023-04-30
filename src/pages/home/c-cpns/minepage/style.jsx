@@ -53,7 +53,21 @@ export const MinePageWrapper = styled.div`
     margin-top: -45px;
     width: 100vw;
     height: 190px;
-    background-color: blue;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 10px;
+    > div {
+      width: 33.33%;
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      > div:nth-child(1) {
+        height: 30px;
+        font-size: 24px;
+      }
+    }
   }
   .jrwm {
     width: 345px;

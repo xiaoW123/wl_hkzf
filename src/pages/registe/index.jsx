@@ -1,16 +1,49 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useState, useRef } from 'react'
 import { RegisteWrapper } from './style'
-import { Form, Input, Button } from 'antd-mobile'
+import { Form, Input, Button, Toast } from 'antd-mobile'
 import { EyeInvisibleOutline, EyeOutline } from 'antd-mobile-icons'
 import HeadBar from '@/component/head-bar'
 
 import { useNavigate } from 'react-router-dom'
+import {userRegistered } from '@/service/modules'
+
 const Registe = memo(() => {
   const navigate = useNavigate()
   const [visible, setVisible] = useState(false)
-  function submitClick(value) {
+  const inputRef = useRef()
+  // 表单校验成功后的调用
+  async function submitRegister(value) {
+    if (value.password !== value.repeat_password) {
+      Toast.show({
+        icon: 'fail',
+        content: '密码不一致'
+      })
+      return
+    }
+
     console.log(value)
+    const username = value.username
+    const password = value.password
+    const { body, status, description } = await userRegistered(
+      username,
+      password
+    )
+
+    if (status !== 200) {
+      Toast.show({
+        icon: 'fail',
+        content: description
+      })
+      return
+    }
+    Toast.show({
+      icon: 'success',
+      content: '注册成功'
+    })
+    inputRef.current?.clear()
+    window.localStorage.setItem('token', body.toke)
   }
+
   return (
     <RegisteWrapper>
       {/* 头部 */}
@@ -18,7 +51,7 @@ const Registe = memo(() => {
       {/* 表单 */}
       <Form
         layout="horizontal"
-        onFinish={(value) => submitClick(value)}
+        onFinish={(value) => submitRegister(value)}
         footer={
           <Button
             style={{
@@ -28,7 +61,6 @@ const Registe = memo(() => {
             block
             type="submit"
             size="large"
-            // onClick={submitClick}
           >
             注册
           </Button>
@@ -38,6 +70,7 @@ const Registe = memo(() => {
         <Form.Item
           label="用户名"
           name="username"
+          clearable
           rules={[{ required: true, message: '用户名不能为空' }]}
         >
           <Input placeholder="请输入账号" clearable type="username" />
@@ -66,7 +99,8 @@ const Registe = memo(() => {
         {/* 重复密码 */}
         <Form.Item
           label="重复密码"
-          name="password"
+          name="repeat_password"
+          clearable
           rules={[{ required: true, message: '密码不能为空' }]}
           extra={
             <div className="eye">
@@ -81,6 +115,7 @@ const Registe = memo(() => {
           <Input
             placeholder="请重复输入密码"
             clearable
+            value="123"
             type={visible ? 'text' : 'password'}
           />
         </Form.Item>

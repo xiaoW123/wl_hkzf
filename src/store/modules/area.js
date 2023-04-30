@@ -8,9 +8,11 @@ import {
   getAreaInfoData,
   getAreaCommunityData
 } from '@/service/modules'
+import { Toast } from 'antd-mobile'
 export const fetchAreaDataAction = createAsyncThunk(
   'area',
-  (arg, { dispatch }) => {
+  (arg, { getState, dispatch }) => {
+
     // 获取城市列表
     getAreaCityData().then((res) => {
       dispatch(changeAreaCityAction(res.body))
@@ -20,22 +22,32 @@ export const fetchAreaDataAction = createAsyncThunk(
       dispatch(changeAreaHotAction(res.body))
     })
 
-    // 小区关键词查询
-    getAreaCommunityData().then((res) => {
-      // console.log('小区关键词查询-----', res)
-    })
-    // 查询房源数据
-    getAreaMapData().then((res) => {
-      // console.log('查询房源数据----', res)
-    })
-    // 取子级城市列表
-    getAreaData().then((res) => {
-      // console.log('获取子级城市列表----', res)
-    })
+    // // 小区关键词查询
+    // getAreaCommunityData().then((res) => {
+    //   // console.log('小区关键词查询-----', res)
+    // })
 
+    // // 查询房源数据
+    // const position = getState().area.currentPositioning[0].value
+    // getAreaMapData(position).then((res) => {
+    //   console.log(res.body);
+    //   window.localStorage.setItem('position', JSON.stringify(res.body))
+    // })
+    // // 取子级城市列表
+    // getAreaData().then((res) => {
+    //   // console.log('获取子级城市列表----', res)
+    // })
     // 根据id获取租房资讯
   }
 )
+
+export const fetchAreaMapDataAction = createAsyncThunk('mapData', async (id, { getState, dispatch }) => {
+  const position = getState().area.currentPositioning[0].value
+  const { body } = await getAreaMapData(position)
+  dispatch(changePositionAction(body))
+})
+
+
 export const fetchCurentPositionAction = createAsyncThunk('position', (arg, { dispatch }) => {
   // 根据城市名称查询该城市信息
   getAreaInfoData(arg).then((res) => {
@@ -56,7 +68,8 @@ const initialState = {
       pinyin: 'beijing',
       short: 'bj'
     }
-  ]
+  ],
+  position: []
 }
 
 export const areaSlice = createSlice({
@@ -73,11 +86,15 @@ export const areaSlice = createSlice({
       console.log(payload);
       state.currentPositioning = payload
     },
+    changePositionAction(state, { payload }) {
+      state.position = payload
+    }
   }
 })
 export const {
   changeAreaCityAction,
   changeAreaHotAction,
-  changeCurrentPositioningAction
+  changeCurrentPositioningAction,
+  changePositionAction
 } = areaSlice.actions
 export default areaSlice.reducer

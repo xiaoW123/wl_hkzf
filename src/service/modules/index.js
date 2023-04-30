@@ -56,11 +56,11 @@ export function getAreaCommunityData() {
 }
 
 // 查询房源数据
-export function getAreaMapData() {
+export function getAreaMapData(id = 'AREA|88cff55c-aaa4-e2e0') {
   return hyRequest.get({
     url: '/area/map',
     params: {
-      id: 'AREA|88cff55c-aaa4-e2e0'
+      id
     }
   })
 }
@@ -98,5 +98,34 @@ export function getHouseData(params) {
 export function getHouseCodeData(id) {
   return hyRequest.get({
     url: `/houses/${id}`
+  })
+}
+
+// 用户注册接口
+export function userRegistered(username, password) {
+  return hyRequest.post({
+    url: '/user/registered',
+    data: {
+      username,
+      password
+    }
+  })
+}
+
+// 用户登录接口
+export function userLogin(username, password) {
+  return hyRequest.post({
+    url: '/user/login',
+    data: {
+      username,
+      password
+    }
+  })
+}
+
+// 获取用户资料
+export function userInfo() {
+  return hyRequest.get({
+    url: '/user',
   })
 }

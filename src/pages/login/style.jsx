@@ -1,10 +1,7 @@
 import styled from 'styled-components'
 export const LoginWrapper = styled.div`
-  .city_change {
-    position: static;
-  }
   .adm-form {
-    margin-top: 30px;
+    padding-top: 50px;
   }
   .eye {
     padding: 4px;
